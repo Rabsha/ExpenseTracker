@@ -1,6 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const ExpenseTracker = () => {
+
+    const element = <FontAwesomeIcon icon={faTrash} />
+
+    const [expense, setExpense] = useState('');
+    const [amount, setAmount] = useState('');
+    const [data, setAllData] = useState([]);
+
+    const HandleValue1 = (event) => {
+        setExpense(event.target.value);
+    }
+
+    const HandleValue2 = (event) => {
+        setAmount(event.target.value);
+    }
+
+    const HandleData = () => 
+    {
+        const myData = [...data, {expense:expense,amount:amount}];
+        setAllData(myData);
+        setExpense('');
+        setAmount('');
+    }
+
     return(
         <div className="ExpenseTracker">
             <div className="container">
@@ -12,17 +37,17 @@ const ExpenseTracker = () => {
                         <div className="col-md-4">
                             <div className="leftsidebox">
                                 <h4><b>ADD NEW EXPENSE</b></h4>
-                                <form>
+                                <form method="post" onSubmit={(e) => { e.preventDefault(); }}>
                                     <div className="form-group">
                                         <label>Name of Expense</label>
-                                        <input type="text" className="form-control" />
+                                        <input type="text" value={expense} onChange={HandleValue1} className="form-control" />
                                     </div>
                                     <div className="form-group">
                                         <label>Amount</label>
-                                        <input type="text" className="form-control" />
+                                        <input type="text" value={amount} onChange={HandleValue2} className="form-control" />
                                     </div>
                                     <div className="mybtns">
-                                        <button className="btnworks">Submit</button>
+                                        <button className="btnworks" onClick={HandleData}>Submit</button>
                                     </div>
                                 </form>
                             </div>
@@ -32,11 +57,13 @@ const ExpenseTracker = () => {
                                 <h4><b>HISTORY RECORD</b></h4>
                                 <div className="myhistory">
                                     <ul>
-                                        <li>Rabsha Shakeel <a href="#">Delete</a></li>
-                                        <li>Rabsha Shakeel <a href="#">Delete</a></li>
-                                        <li>Rabsha Shakeel <a href="#">Delete</a></li>
-                                        <li>Rabsha Shakeel <a href="#">Delete</a></li>
-                                        <li>Rabsha Shakeel <a href="#">Delete</a></li>
+                                        {data.map((result,index) => (
+                                            <li key={index}>
+                                                <span className="rightSpan">{result.expense}</span> 
+                                                <span className="leftSpan">{result.amount}</span> 
+                                                <a href="#" className="myDelete">{element}</a>
+                                            </li>
+                                        ))}
                                     </ul>
                                 </div>
                             </div>
