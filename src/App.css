@@ -1,8 +1,9 @@
 body{
     background-color: #e5e6ed;
 }
-.centersidebox h4{
+.centersidebox h4 {
     text-align: center;
+    padding-bottom: 8px;
 }
 .ExpenseTracker {
     padding-top: 35px;
@@ -63,4 +64,8 @@ ul{
     padding: 8px 12px;
     background: red;
     color: #fff;
+}
+.Maindata h4 {
+    text-align: center;
+    padding-bottom: 8px;
 }
