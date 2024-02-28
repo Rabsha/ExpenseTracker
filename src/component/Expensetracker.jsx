@@ -9,6 +9,7 @@ const ExpenseTracker = () => {
     const [expense, setExpense] = useState('');
     const [amount, setAmount] = useState('');
     const [data, setAllData] = useState([]);
+    const [TotalIncome, setTotalIncome] = useState(0);
 
     const HandleValue1 = (event) => {
         setExpense(event.target.value);
@@ -20,10 +21,13 @@ const ExpenseTracker = () => {
 
     const HandleData = () => 
     {
-        const myData = [...data, {expense:expense,amount:amount}];
-        setAllData(myData);
-        setExpense('');
-        setAmount('');
+        if(expense.trim() != '' && amount.trim() != '')
+        {
+            const myData = [...data, {expense:expense,amount:amount}];
+            setAllData(myData);
+            setExpense('');
+            setAmount('');
+        }
     }
 
     return(
@@ -76,7 +80,7 @@ const ExpenseTracker = () => {
                                 <div className="MainIncome">
                                     <div className="OneeIncome">
                                         <h3 style={{color:"green",fontWeight:"bold"}}>Income</h3>
-                                        <h3 style={{color:"green",fontWeight:"bold"}}>500$</h3>
+                                        <h3 style={{color:"green",fontWeight:"bold"}}>{TotalIncome}$</h3>
                                     </div>
                                     <div className="OneeIncome">
                                         <h3 style={{color:"red",fontWeight:"bold"}}>Outcome</h3>
