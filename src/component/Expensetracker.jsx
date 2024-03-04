@@ -9,7 +9,10 @@ const ExpenseTracker = () => {
     const [expense, setExpense] = useState('');
     const [amount, setAmount] = useState('');
     const [data, setAllData] = useState([]);
-    const [TotalIncome, setTotalIncome] = useState(0);
+    const [IncomeTotal, setTotalIncome] = useState(0);
+    const [IncomeValues, setIncomeValues] = useState([]);
+    const [ExpenseTotal, setTotalExpense] = useState(0);
+    const [ExpenseValues, setExpenseValues] = useState([]);
 
     const HandleValue1 = (event) => {
         setExpense(event.target.value);
@@ -25,6 +28,19 @@ const ExpenseTracker = () => {
         {
             const myData = [...data, {expense:expense,amount:amount}];
             setAllData(myData);
+
+            if(amount.includes('-') == true)
+            {
+                const ExpenseTotalAmount = ExpenseTotal + parseInt(amount);
+                setTotalExpense(ExpenseTotalAmount);
+                setExpenseValues([...ExpenseValues, amount]);
+            }
+            else{
+                const IncomeTotalAmount = IncomeTotal + parseInt(amount);
+                setTotalIncome(IncomeTotalAmount);
+                setIncomeValues([...IncomeValues, amount]);
+            }
+
             setExpense('');
             setAmount('');
         }
@@ -61,7 +77,7 @@ const ExpenseTracker = () => {
                                 <h4><b>HISTORY RECORD</b></h4>
                                 <div className="myhistory">
                                     <ul>
-                                        {data.map((result,index) => (
+                                        {data.map((result,index) => (                                            
                                             <li key={index}>
                                                 <span className="rightSpan">{result.expense}</span> 
                                                 <span className="leftSpan">{result.amount}</span> 
@@ -80,11 +96,11 @@ const ExpenseTracker = () => {
                                 <div className="MainIncome">
                                     <div className="OneeIncome">
                                         <h3 style={{color:"green",fontWeight:"bold"}}>Income</h3>
-                                        <h3 style={{color:"green",fontWeight:"bold"}}>{TotalIncome}$</h3>
+                                        <h3 style={{color:"green",fontWeight:"bold"}}>{IncomeTotal}</h3>
                                     </div>
                                     <div className="OneeIncome">
                                         <h3 style={{color:"red",fontWeight:"bold"}}>Outcome</h3>
-                                        <h3 style={{color:"red",fontWeight:"bold"}}>500$</h3>
+                                        <h3 style={{color:"red",fontWeight:"bold"}}>{ExpenseTotal}</h3>
                                     </div>
                                 </div>
                             </div>
