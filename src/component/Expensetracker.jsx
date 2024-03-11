@@ -13,6 +13,8 @@ const ExpenseTracker = () => {
     const [IncomeValues, setIncomeValues] = useState([]);
     const [ExpenseTotal, setTotalExpense] = useState(0);
     const [ExpenseValues, setExpenseValues] = useState([]);
+    const [TotalBalance, setTotalBalance] = useState(0);
+
 
     const HandleValue1 = (event) => {
         setExpense(event.target.value);
@@ -41,6 +43,11 @@ const ExpenseTracker = () => {
                 setIncomeValues([...IncomeValues, amount]);
             }
 
+            const Expensess = ExpenseTotal.toString();
+            const cleanExpenseTotal = Expensess.split('-').join('');
+            const myTotal = IncomeTotal - cleanExpenseTotal;
+            setTotalBalance(myTotal);
+
             setExpense('');
             setAmount('');
         }
@@ -64,7 +71,7 @@ const ExpenseTracker = () => {
                                     </div>
                                     <div className="form-group">
                                         <label>Amount</label>
-                                        <input type="text" value={amount} onChange={HandleValue2} className="form-control" />
+                                        <input type="number" value={amount} onChange={HandleValue2} className="form-control" />
                                     </div>
                                     <div className="mybtns">
                                         <button className="btnworks" onClick={HandleData}>Submit</button>
@@ -91,7 +98,7 @@ const ExpenseTracker = () => {
                         <div className="col-md-4">
                             <div className="rightsidebox">
                                 <div className="Maindata">
-                                    <h4><b>BALANCE: 45100$</b></h4>
+                                    <h4><b>BALANCE: ${TotalBalance}</b></h4>
                                 </div>
                                 <div className="MainIncome">
                                     <div className="OneeIncome">
