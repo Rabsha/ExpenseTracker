@@ -34,22 +34,27 @@ const ExpenseTracker = () => {
             if(amount.includes('-') == true)
             {
                 const ExpenseTotalAmount = ExpenseTotal + parseInt(amount);
+                console.log(ExpenseTotalAmount);
                 setTotalExpense(ExpenseTotalAmount);
+                setTotalBalance(prev => prev + (ExpenseTotalAmount))
                 setExpenseValues([...ExpenseValues, amount]);
             }
             else{
                 const IncomeTotalAmount = IncomeTotal + parseInt(amount);
                 setTotalIncome(IncomeTotalAmount);
                 setIncomeValues([...IncomeValues, amount]);
+                
+                setTotalBalance(IncomeTotalAmount);
             }
 
-            const Expensess = ExpenseTotal.toString();
-            const cleanExpenseTotal = Expensess.split('-').join('');
-            const myTotal = IncomeTotal - cleanExpenseTotal;
-            setTotalBalance(myTotal);
+            // const Expensess = ExpenseTotalAmount.toString();
+            // const cleanExpenseTotal = Expensess.split('-').join('');
+            // const myTotal = TotalBalance - parseInt(cleanExpenseTotal);
+            // console.log(myTotal);
 
             setExpense('');
             setAmount('');
+            
         }
     }
 
