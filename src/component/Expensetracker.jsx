@@ -31,26 +31,25 @@ const ExpenseTracker = () => {
             const myData = [...data, {expense:expense,amount:amount}];
             setAllData(myData);
 
-            if(amount.includes('-') == true)
-            {
-                const ExpenseTotalAmount = ExpenseTotal + parseInt(amount);
-                console.log(ExpenseTotalAmount);
-                setTotalExpense(ExpenseTotalAmount);
-                setTotalBalance(prev => prev + (ExpenseTotalAmount))
-                setExpenseValues([...ExpenseValues, amount]);
-            }
-            else{
-                const IncomeTotalAmount = IncomeTotal + parseInt(amount);
-                setTotalIncome(IncomeTotalAmount);
-                setIncomeValues([...IncomeValues, amount]);
-                
-                setTotalBalance(IncomeTotalAmount);
-            }
+            let newExpenseTotal = ExpenseTotal;
+            let newIncomeTotal = IncomeTotal;
 
-            // const Expensess = ExpenseTotalAmount.toString();
-            // const cleanExpenseTotal = Expensess.split('-').join('');
-            // const myTotal = TotalBalance - parseInt(cleanExpenseTotal);
-            // console.log(myTotal);
+            if (amount.includes('-')) {
+                let cleanAmount = amount;
+                if (amount.startsWith('-')) {
+                    cleanAmount = amount.substring(1); // Remove the "-" sign
+                }
+    
+                newExpenseTotal += parseInt(cleanAmount);
+                setTotalExpense(newExpenseTotal);
+                setExpenseValues([...ExpenseValues, cleanAmount]);
+            } else {
+                newIncomeTotal += parseInt(amount);
+                setTotalIncome(newIncomeTotal);
+                setIncomeValues([...IncomeValues, amount]);
+            }
+            const newBalance = newIncomeTotal - newExpenseTotal;
+            setTotalBalance(newBalance);
 
             setExpense('');
             setAmount('');
